@@ -1,26 +1,40 @@
+package com.sjyt.codekata_anagrams
+
 import java.io.File
-import java.nio.charset.Charset
 
 class Anagrams {
     companion object {
 
-        fun File.findAnagramsBySequence():Sequence<List<String>> {
-            val result = this.useLines { lines: Sequence<String> ->
+        fun File.findAnagramsBySequence(): Sequence<List<String>> {
+            return useLines { lines: Sequence<String> ->
                 lines.groupBy { it.sorter() }
                     .asSequence()
                     .filter { it.value.count() > 1 }
                     .map { it.value }
             }
-            return result
         }
 
         fun File.findAnagramsByList(): List<List<String>> {
-            val result = this.useLines { lines: Sequence<String> ->
+            return useLines { lines: Sequence<String> ->
                 lines.groupBy { it.sorter() }
                     .filter { it.value.count() > 1 }
                     .map { it.value }
             }
-            return result
+        }
+
+        fun File.findLongestWordInAnagrams(): String {
+            return  useLines { lines: Sequence<String> ->
+                lines.groupBy { it.sorter() }
+                    .asSequence()
+                    .filter { it.value.count() > 1 }
+                    .flatMap { it.value }
+                    .reduce { longest, word ->
+                        if (longest.length < word.length) {
+                            return@reduce word
+                        }
+                        return@reduce longest
+                    }
+            }
         }
 
 

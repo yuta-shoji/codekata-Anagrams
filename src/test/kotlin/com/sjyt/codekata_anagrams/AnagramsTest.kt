@@ -1,8 +1,8 @@
 package com.sjyt.codekata_anagrams
 
-import Anagrams
-import Anagrams.Companion.findAnagramsByList
-import Anagrams.Companion.findAnagramsBySequence
+import com.sjyt.codekata_anagrams.Anagrams.Companion.findAnagramsByList
+import com.sjyt.codekata_anagrams.Anagrams.Companion.findAnagramsBySequence
+import com.sjyt.codekata_anagrams.Anagrams.Companion.findLongestWordInAnagrams
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.Assertions.assertEquals
@@ -51,6 +51,18 @@ class AnagramsTest {
 
 
         assertEquals(expectPair, actualAnagrams.count())
+    }
+
+    @Test
+    fun `アナグラムの中で最も文字数の多い単語を返す`() {
+        val filePath = "/Users/yutashoji/dev/codekata/codekata_anagrams/wordList.txt"
+        val expectLongestWord = "acoustoelectrically"
+
+
+        val actualLongestWord = File(filePath).findLongestWordInAnagrams()
+
+
+        assertEquals(expectLongestWord, actualLongestWord)
     }
 
 }
