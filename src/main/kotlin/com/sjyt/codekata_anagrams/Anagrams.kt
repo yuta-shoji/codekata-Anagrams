@@ -24,7 +24,7 @@ class Anagrams {
         }
 
         fun File.findLongestWordInAnagrams(): String {
-            return  useLines { lines: Sequence<String> ->
+            return useLines { lines: Sequence<String> ->
                 lines.groupBy { it.sorter() }
                     .asSequence()
                     .filter { it.value.count() > 1 }
@@ -34,13 +34,28 @@ class Anagrams {
         }
 
         fun File.findContainingMostWordsInAnagrams(): List<String> {
-            return  useLines { lines: Sequence<String> ->
+            return useLines { lines: Sequence<String> ->
                 lines.groupBy { it.sorter() }
                     .asSequence()
                     .filter { it.value.count() > 1 }
                     .map { it.value }
                     .maxBy { it.size }
             }
+        }
+
+        fun File.findSixLetterOfTwoWordsAsReadable(): List<String> {
+            return useLines { lines: Sequence<String> ->
+                lines.asSequence()
+                    .toList()
+            }
+        }
+
+        fun File.findSixLetterOfTwoWordsToRunFast(): List<String> {
+            return listOf("")
+        }
+
+        fun File.findSixLetterOfTwoWordsAsExtendable(): List<String> {
+            return listOf("")
         }
 
 

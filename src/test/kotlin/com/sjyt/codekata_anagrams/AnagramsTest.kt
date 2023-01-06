@@ -4,6 +4,7 @@ import com.sjyt.codekata_anagrams.Anagrams.Companion.findAnagramsByList
 import com.sjyt.codekata_anagrams.Anagrams.Companion.findAnagramsBySequence
 import com.sjyt.codekata_anagrams.Anagrams.Companion.findContainingMostWordsInAnagrams
 import com.sjyt.codekata_anagrams.Anagrams.Companion.findLongestWordInAnagrams
+import com.sjyt.codekata_anagrams.Anagrams.Companion.findSixLetterOfTwoWordsAsReadable
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.Assertions.assertEquals
@@ -78,4 +79,15 @@ class AnagramsTest {
         assertEquals(expectAnagramsContainingMostWords, actualAnagramsContainingMostWords)
     }
 
+    @Test
+    fun `二つの単語が連結された6文字の単語を全て返す`() {
+        val filePath = "/Users/yutashoji/dev/codekata/codekata_anagrams/wordList.txt"
+        val expectAnagramsContainingMostWords = listOf("alerts", "alters", "artels", "estral", "laster", "rastle", "ratels", "salter", "slater", "staler", "stelar", "talers", "tarsel")
+
+
+        val actualAnagramsContainingMostWords = File(filePath).findSixLetterOfTwoWordsAsReadable()
+
+
+        assertEquals(expectAnagramsContainingMostWords, actualAnagramsContainingMostWords)
+    }
 }
