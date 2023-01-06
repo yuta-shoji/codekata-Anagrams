@@ -45,7 +45,20 @@ class Anagrams {
 
         fun File.findSixLetterOfTwoWordsAsReadable(): List<String> {
             return useLines { lines: Sequence<String> ->
-                lines.asSequence()
+                lines.filter { it.length < 6 }
+                    .fold(mutableListOf<String>()) { results, target ->
+                        lines
+                            .forEach { word ->
+                                if (
+                                    target != word
+                                    && "${target}${word}".length == 6
+                                    && lines.contains("${target}${word}")
+                                ) {
+                                    results.add("${target}${word}")
+                                }
+                            }
+                        return@fold results
+                    }
                     .toList()
             }
         }

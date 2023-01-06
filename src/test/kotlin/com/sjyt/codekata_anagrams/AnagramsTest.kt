@@ -13,19 +13,22 @@ import java.io.File
 
 class AnagramsTest {
     private lateinit var anagrams: Anagrams
+    private lateinit var sampleFilePath: String
+    private lateinit var prodFilePath: String
 
     @BeforeEach
     fun setup() {
         anagrams = Anagrams()
+        sampleFilePath = "/Users/yutashoji/dev/codekata/codekata_anagrams/sampleWordList.txt"
+        prodFilePath = "/Users/yutashoji/dev/codekata/codekata_anagrams/wordList.txt"
     }
 
     @Test
     fun `テストデータの中のアナグラムの組み合わせを見つけて返す`() {
-        val filePath = "/Users/yutashoji/dev/codekata/codekata_anagrams/sampleWordList.txt"
         val expect = listOf(listOf("abcde", "edcba"), listOf("efghi", "ihgfe"))
 
 
-        val actualAnagrams = File(filePath).findAnagramsBySequence()
+        val actualAnagrams = File(sampleFilePath).findAnagramsBySequence()
 
 
         assertEquals(expect, actualAnagrams)
@@ -33,11 +36,10 @@ class AnagramsTest {
 
     @Test
     fun `本物のデータの中でアナグラムの組み合わせ見つけて返す(Sequence)`() {
-        val filePath = "/Users/yutashoji/dev/codekata/codekata_anagrams/wordList.txt"
         val expectPair = 20683
 
 
-        val actualAnagrams = File(filePath).findAnagramsBySequence()
+        val actualAnagrams = File(prodFilePath).findAnagramsBySequence()
 
 
         assertEquals(expectPair, actualAnagrams.count())
@@ -45,11 +47,10 @@ class AnagramsTest {
 
     @Test
     fun `本物のデータの中でアナグラムの組み合わせ見つけて返す(List)`() {
-        val filePath = "/Users/yutashoji/dev/codekata/codekata_anagrams/wordList.txt"
         val expectPair = 20683
 
 
-        val actualAnagrams = File(filePath).findAnagramsByList()
+        val actualAnagrams = File(prodFilePath).findAnagramsByList()
 
 
         assertEquals(expectPair, actualAnagrams.count())
@@ -57,11 +58,10 @@ class AnagramsTest {
 
     @Test
     fun `アナグラムの中で最も文字数の多い単語を返す`() {
-        val filePath = "/Users/yutashoji/dev/codekata/codekata_anagrams/wordList.txt"
         val expectLongestWord = "acoustoelectrically"
 
 
-        val actualLongestWord = File(filePath).findLongestWordInAnagrams()
+        val actualLongestWord = File(prodFilePath).findLongestWordInAnagrams()
 
 
         assertEquals(expectLongestWord, actualLongestWord)
@@ -69,23 +69,21 @@ class AnagramsTest {
 
     @Test
     fun `アナグラムの中で最も多い単語を含む組み合わせの配列を返す`() {
-        val filePath = "/Users/yutashoji/dev/codekata/codekata_anagrams/wordList.txt"
         val expectAnagramsContainingMostWords = listOf("alerts", "alters", "artels", "estral", "laster", "rastle", "ratels", "salter", "slater", "staler", "stelar", "talers", "tarsel")
 
 
-        val actualAnagramsContainingMostWords = File(filePath).findContainingMostWordsInAnagrams()
+        val actualAnagramsContainingMostWords = File(prodFilePath).findContainingMostWordsInAnagrams()
 
 
         assertEquals(expectAnagramsContainingMostWords, actualAnagramsContainingMostWords)
     }
 
     @Test
-    fun `二つの単語が連結された6文字の単語を全て返す`() {
-        val filePath = "/Users/yutashoji/dev/codekata/codekata_anagrams/wordList.txt"
+    fun `二つの単語が連結された6文字の単語を全て返す(Step1-Readable)`() {
         val expectAnagramsContainingMostWords = listOf("alerts", "alters", "artels", "estral", "laster", "rastle", "ratels", "salter", "slater", "staler", "stelar", "talers", "tarsel")
 
 
-        val actualAnagramsContainingMostWords = File(filePath).findSixLetterOfTwoWordsAsReadable()
+        val actualAnagramsContainingMostWords = File(prodFilePath).findSixLetterOfTwoWordsAsReadable()
 
 
         assertEquals(expectAnagramsContainingMostWords, actualAnagramsContainingMostWords)
