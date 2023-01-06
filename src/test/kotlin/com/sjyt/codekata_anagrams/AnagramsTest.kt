@@ -2,6 +2,7 @@ package com.sjyt.codekata_anagrams
 
 import com.sjyt.codekata_anagrams.Anagrams.Companion.findAnagramsByList
 import com.sjyt.codekata_anagrams.Anagrams.Companion.findAnagramsBySequence
+import com.sjyt.codekata_anagrams.Anagrams.Companion.findContainingMostWordsInAnagrams
 import com.sjyt.codekata_anagrams.Anagrams.Companion.findLongestWordInAnagrams
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -20,10 +21,10 @@ class AnagramsTest {
     @Test
     fun `テストデータの中のアナグラムの組み合わせを見つけて返す`() {
         val filePath = "/Users/yutashoji/dev/codekata/codekata_anagrams/sampleWordList.txt"
-        val expect = listOf("abcde", "edcba", "efghi", "ihgfe")
+        val expect = listOf(listOf("abcde", "edcba"), listOf("efghi", "ihgfe"))
 
 
-        val actualAnagrams = File(filePath).findAnagramsBySequence().toList().flatten()
+        val actualAnagrams = File(filePath).findAnagramsBySequence()
 
 
         assertEquals(expect, actualAnagrams)
@@ -63,6 +64,18 @@ class AnagramsTest {
 
 
         assertEquals(expectLongestWord, actualLongestWord)
+    }
+
+    @Test
+    fun `アナグラムの中で最も多い単語を含む組み合わせの配列を返す`() {
+        val filePath = "/Users/yutashoji/dev/codekata/codekata_anagrams/wordList.txt"
+        val expectAnagramsContainingMostWords = listOf("alerts", "alters", "artels", "estral", "laster", "rastle", "ratels", "salter", "slater", "staler", "stelar", "talers", "tarsel")
+
+
+        val actualAnagramsContainingMostWords = File(filePath).findContainingMostWordsInAnagrams()
+
+
+        assertEquals(expectAnagramsContainingMostWords, actualAnagramsContainingMostWords)
     }
 
 }

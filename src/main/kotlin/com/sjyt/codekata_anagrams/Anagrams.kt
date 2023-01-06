@@ -5,12 +5,13 @@ import java.io.File
 class Anagrams {
     companion object {
 
-        fun File.findAnagramsBySequence(): Sequence<List<String>> {
+        fun File.findAnagramsBySequence(): List<List<String>> {
             return useLines { lines: Sequence<String> ->
                 lines.groupBy { it.sorter() }
                     .asSequence()
                     .filter { it.value.count() > 1 }
                     .map { it.value }
+                    .toList()
             }
         }
 
@@ -28,12 +29,17 @@ class Anagrams {
                     .asSequence()
                     .filter { it.value.count() > 1 }
                     .flatMap { it.value }
-                    .reduce { longest, word ->
-                        if (longest.length < word.length) {
-                            return@reduce word
-                        }
-                        return@reduce longest
-                    }
+                    .maxBy { it.length }
+            }
+        }
+
+        fun File.findContainingMostWordsInAnagrams(): List<String> {
+            return  useLines { lines: Sequence<String> ->
+                lines.groupBy { it.sorter() }
+                    .asSequence()
+                    .filter { it.value.count() > 1 }
+                    .map { it.value }
+                    .maxBy { it.size }
             }
         }
 
