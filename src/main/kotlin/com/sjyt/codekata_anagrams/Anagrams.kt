@@ -44,22 +44,24 @@ class Anagrams {
         }
 
         fun File.findSixLetterOfTwoWordsAsReadable(): List<String> {
+            var lessSix: List<String> = mutableListOf()
+            useLines { lines: Sequence<String> ->
+                lessSix = lines.filter { it.length < 6 }.toList()
+            }
+
             return useLines { lines: Sequence<String> ->
-                lines.filter { it.length < 6 }
-                    .fold(mutableListOf<String>()) { results, target ->
-                        lines
-                            .forEach { word ->
-                                if (
-                                    target != word
-                                    && "${target}${word}".length == 6
-                                    && lines.contains("${target}${word}")
-                                ) {
-                                    results.add("${target}${word}")
-                                }
+                lines.filter { it.length == 6 }
+                    .fold<String, MutableList<String>>(mutableListOf()) { results, word ->
+                        (1..5).forEach { index ->
+                            val firstWord = word.substring(0, index)
+                            val secondWord = word.substring(index)
+                            if (lessSix.containsAll(listOf(firstWord, secondWord))) {
+                                results.add(word)
                             }
+                        }
                         return@fold results
                     }
-                    .toList()
+                    .distinct()
             }
         }
 

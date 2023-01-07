@@ -14,12 +14,14 @@ import java.io.File
 class AnagramsTest {
     private lateinit var anagrams: Anagrams
     private lateinit var sampleFilePath: String
+    private lateinit var sampleSixes: String
     private lateinit var prodFilePath: String
 
     @BeforeEach
     fun setup() {
         anagrams = Anagrams()
         sampleFilePath = "/Users/yutashoji/dev/codekata/codekata_anagrams/sampleWordList.txt"
+        sampleSixes = "/Users/yutashoji/dev/codekata/codekata_anagrams/sampleSixes.txt"
         prodFilePath = "/Users/yutashoji/dev/codekata/codekata_anagrams/wordList.txt"
     }
 
@@ -79,8 +81,19 @@ class AnagramsTest {
     }
 
     @Test
-    fun `二つの単語が連結された6文字の単語を全て返す(Step1-Readable)`() {
-        val expectAnagramsContainingMostWords = listOf("alerts", "alters", "artels", "estral", "laster", "rastle", "ratels", "salter", "slater", "staler", "stelar", "talers", "tarsel")
+    fun `サンプルデータから二つの単語が連結された6文字の単語を全て返す(Step1-Readable)`() {
+        val expectAnagramsContainingMostWords = listOf("albums", "barely")
+
+
+        val actualAnagramsContainingMostWords = File(sampleSixes).findSixLetterOfTwoWordsAsReadable()
+
+
+        assertEquals(expectAnagramsContainingMostWords, actualAnagramsContainingMostWords)
+    }
+
+    @Test
+    fun `本物データから二つの単語が連結された6文字の単語を全て返す(Step1-Readable)`() {
+        val expectAnagramsContainingMostWords = listOf("albums", "barely")
 
 
         val actualAnagramsContainingMostWords = File(prodFilePath).findSixLetterOfTwoWordsAsReadable()
